@@ -65,6 +65,6 @@ To use the Nominatim Flutter Plugin, follow these steps:
 
 6. **Contributions**: Contributions are welcome! If you encounter any issues or have suggestions for improvements, please feel free to submit a pull request or create an issue on the GitHub repository.
 
-7. **License**: This project is licensed under the MIT License. Refer to the [LICENSE](LICENSE) file for details.
+7. **License**: This project is licensed under the GPL-3.0 License. Refer to the [LICENSE](LICENSE) file for details.
 
 Remember to replace the version number (`^1.0.0`) with the actual version of your Nominatim Flutter Plugin. Customize the usage examples and other sections according to your project's needs.

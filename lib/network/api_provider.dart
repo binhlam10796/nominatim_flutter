@@ -7,7 +7,7 @@ part 'api_request_representable.dart'; // Assuming this file is in the same dire
 /// A class responsible for making API requests using Dio.
 class APIProvider {
   APIProvider._();
-  
+
   final _dio = DioFactory.instance.createDioInstance();
 
   // Singleton instance of [APIProvider].
