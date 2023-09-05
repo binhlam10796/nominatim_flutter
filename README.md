@@ -1,6 +1,11 @@
-# Nominatim Flutter Plugin
+# **Nominatim Flutter Plugin with Isolate Loading & Hive Caching**
 
-The Nominatim Flutter Plugin provides a convenient way to interact with the Nominatim service, enabling reverse geocoding and place searching in your Flutter applications.
+The Nominatim Flutter Plugin offers seamless interaction with the Nominatim service, allowing for reverse geocoding and place searching in your Flutter applications. Notably, it supports asynchronous data loading via a dedicated isolate and provides efficient caching using Hive.
+
+## Features
+- **Reverse Geocoding & Place Searching**: Directly integrate with Nominatim.
+- **Asynchronous Isolate Loading**: Load data in a separate thread, ensuring your UI remains smooth.
+- **Hive Caching**: Speed up data retrieval with efficient caching.
 
 ## Usage
 
@@ -10,7 +15,7 @@ To use the Nominatim Flutter Plugin, follow these steps:
 
     ```yaml
     dependencies:
-      nominatim_flutter: ^1.0.0 # Replace with the latest version
+      nominatim_flutter: ^0.0.2 # Replace with the latest version
     ```
 
 2. **Import Classes**: Import the necessary classes in your Dart code.
@@ -67,4 +72,4 @@ To use the Nominatim Flutter Plugin, follow these steps:
 
 7. **License**: This project is licensed under the GPL-3.0 License. Refer to the [LICENSE](LICENSE) file for details.
 
-Remember to replace the version number (`^1.0.0`) with the actual version of your Nominatim Flutter Plugin. Customize the usage examples and other sections according to your project's needs.
+Remember to replace the version number (`^0.0.2`) with the actual version of your Nominatim Flutter Plugin. Customize the usage examples and other sections according to your project's needs.
