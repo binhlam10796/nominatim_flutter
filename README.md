@@ -1,11 +1,12 @@
 # **Nominatim Flutter Plugin with Isolate Loading & Hive Caching**
 
-The Nominatim Flutter Plugin offers seamless interaction with the Nominatim service, allowing for reverse geocoding and place searching in your Flutter applications. Notably, it supports asynchronous data loading via a dedicated isolate and provides efficient caching using Hive.
+The Nominatim Flutter Plugin offers seamless interaction with the Nominatim service, allowing for reverse geocoding and place searching in your Flutter applications. Notably, it supports asynchronous data loading via a dedicated isolate and provides efficient caching using Hive, enhanced with DioCache customization.
 
 ## Features
 - **Reverse Geocoding & Place Searching**: Directly integrate with Nominatim.
 - **Asynchronous Isolate Loading**: Load data in a separate thread, ensuring your UI remains smooth.
 - **Hive Caching**: Speed up data retrieval with efficient caching.
+- **DioCache Customization**: Take control of caching behavior by configuring DioCache settings.
 
 ## Usage
 
@@ -24,15 +25,15 @@ To use the Nominatim Flutter Plugin, follow these steps:
     import 'package:nominatim_flutter/nominatim_flutter.dart';
     ```
 
-3. **Create an Instance**: Create an instance of the `NominatimFlutter` class to access the plugin's features.
-
-    ```dart
-    void main() {
-      runApp(MyApp());
-    }
+3. **Configuration (Optional)**: Before you start making requests, you can optionally set up caching preferences using DioCache.
     
-    // ...
+    ```dart
+    NominatimFlutter.instance.configureDioCache(
+      useCacheInterceptor: true, 
+      maxStale: Duration(days: 7),
+    );
     ```
+    This step allows you to determine whether the cache interceptor is used and to set the maximum staleness of the cache.
 
 4. **Reverse Geocoding**: Retrieve address information from latitude and longitude coordinates.
 

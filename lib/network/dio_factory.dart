@@ -1,50 +1,49 @@
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:nominatim_flutter/config/dio_cache_configuration.dart';
 
-/// A factory class for creating a singleton [Dio] instance with cache interceptor.
+/// A factory class responsible for creating and configuring instances of [Dio]
+/// with caching capabilities provided by [DioCacheInterceptor].
 class DioFactory {
-  DioFactory._(); // Private constructor to prevent direct instantiation.
+  // Singleton pattern to ensure a single instance of DioFactory
+  DioFactory._();
 
   static final DioFactory _instance = DioFactory._();
 
   /// Get the singleton instance of [DioFactory].
   static DioFactory get instance => _instance;
 
-  // Global cache options for DioCacheInterceptor.
-  final options = CacheOptions(
-    // A default store is required for the interceptor.
-    store: MemCacheStore(),
+  /// Default cache options for DioCacheInterceptor.
+  final CacheOptions _defaultCacheOptions = _createDefaultCacheOptions();
 
-    // All subsequent fields are optional.
+  /// Constructs the default cache options for [DioCacheInterceptor].
+  ///
+  /// This consolidates and centralizes cache-related configurations to
+  /// ensure consistent behavior across different parts of the application.
+  static CacheOptions _createDefaultCacheOptions() {
+    return CacheOptions(
+      store: MemCacheStore(),
+      policy: CachePolicy.request,
+      hitCacheOnErrorExcept: [401, 403],
+      maxStale: DioCacheConfiguration.maxStale,
+      priority: CachePriority.normal,
+      keyBuilder: CacheOptions.defaultCacheKeyBuilder,
+      allowPostMethod: false,
+    );
+  }
 
-    // Default cache policy.
-    policy: CachePolicy.request,
-
-    // Returns a cached response on error for statuses 401 & 403.
-    // Also allows returning a cached response on network errors (e.g., offline usage).
-    hitCacheOnErrorExcept: [401, 403],
-
-    // Overrides any HTTP directive to delete the entry after this duration.
-    // Useful only when the origin server has no cache config or custom behavior is desired.
-    maxStale: const Duration(days: 7),
-
-    // Default. Allows 3 cache sets and eases cleanup.
-    priority: CachePriority.normal,
-
-    // Default. Body and headers encryption with your own algorithm.
-    cipher: null,
-
-    // Default. Key builder to retrieve requests.
-    keyBuilder: CacheOptions.defaultCacheKeyBuilder,
-
-    // Default. Allows caching POST requests. Overriding [keyBuilder] is strongly recommended.
-    allowPostMethod: false,
-  );
-
-  /// Creates and returns a [Dio] instance configured with cache interceptor.
-  Dio createDioInstance({Map<String, dynamic>? headers}) {
+  /// Creates and returns a [Dio] instance that's pre-configured with caching capabilities.
+  ///
+  /// Uses the [DioCacheInterceptor] to provide caching functionality,
+  /// relying on the cache configurations provided in [_defaultCacheOptions].
+  Dio createDioInstance() {
     Dio dio = Dio();
-    dio.interceptors.add(DioCacheInterceptor(options: options));
+
+    // Integrate cache interceptor if caching is enabled in configurations
+    if (DioCacheConfiguration.useCacheInterceptor) {
+      dio.interceptors.add(DioCacheInterceptor(options: _defaultCacheOptions));
+    }
+
     return dio;
   }
 }
