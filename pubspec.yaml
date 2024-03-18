@@ -1,5 +1,5 @@
 name: nominatim_flutter
-description: The Nominatim Flutter Plugin facilitates seamless interactions with the Nominatim service for reverse geocoding and place searches in Flutter apps. It boasts asynchronous data loading via a separate isolate and efficient caching with Hive.
+description: Nominatim Flutter Plugin offers Nominatim integration for geocoding in Flutter with async loading and Hive caching.
 version: 0.0.2
 homepage: https://github.com/binhlam10796/nominatim_flutter
 
