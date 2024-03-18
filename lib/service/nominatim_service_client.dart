@@ -9,12 +9,14 @@ class NominatimServiceClient implements APIRequestRepresentable {
   final NominatimServiceType type;
   final SearchRequest? searchRequest;
   final ReverseRequest? reverseRequest;
+  final String? language;
 
   // Constructor for the NominatimServiceClient
   NominatimServiceClient({
     required this.type,
     this.searchRequest,
     this.reverseRequest,
+    this.language,
   });
 
   // Get the request body (null in this case)
@@ -80,6 +82,7 @@ class NominatimServiceClient implements APIRequestRepresentable {
             'viewbox':
                 '${searchRequest!.viewBox!.westLongitude},${searchRequest!.viewBox!.southLatitude},${searchRequest!.viewBox!.eastLongitude},${searchRequest!.viewBox!.northLatitude}',
           if (searchRequest?.viewBox != null) 'bounded': '1',
+          if (language != null) 'accept-language': language!,
         };
       case NominatimServiceType.reverse:
         // Assert that reverseRequest is not null
@@ -93,6 +96,7 @@ class NominatimServiceClient implements APIRequestRepresentable {
               "${(reverseRequest?.addressDetails ?? true) ? 1 : 0}",
           "extratags": "${(reverseRequest?.extraTags ?? true) ? 1 : 0}",
           "namedetails": "${(reverseRequest?.nameDetails ?? true) ? 1 : 0}",
+          if (language != null) 'accept-language': language!,
         };
     }
   }

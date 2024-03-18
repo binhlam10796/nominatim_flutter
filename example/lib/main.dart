@@ -46,6 +46,7 @@ class MyHomePageState extends State<MyHomePage> {
                 // Perform reverse geocoding
                 final response = await NominatimFlutter.instance.reverse(
                   reverseRequest: reverseRequest,
+                  language: 'en-US,en;q=0.5'
                 );
 
                 // Display the address information in a dialog
@@ -78,6 +79,7 @@ class MyHomePageState extends State<MyHomePage> {
                 // Perform a search
                 final response = await NominatimFlutter.instance.search(
                   searchRequest: searchRequest,
+                  language: 'en-US,en;q=0.5'
                 );
 
                 // Display the search results in a dialog

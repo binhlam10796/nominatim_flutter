@@ -47,6 +47,7 @@ To use the Nominatim Flutter Plugin, follow these steps:
     );
     final reverseResult = await NominatimFlutter.instance.reverse(
       reverseRequest: reverseRequest,
+      language: 'en-US,en;q=0.5', // Specify the desired language(s) here
     );
     print(reverseResult);
     ```
@@ -63,6 +64,7 @@ To use the Nominatim Flutter Plugin, follow these steps:
     );
     final searchResult = await NominatimFlutter.instance.search(
       searchRequest: searchRequest,
+      language: 'en-US,en;q=0.5', // Specify the desired language(s) here
     );
     for (var result in searchResult) {
       print(result);

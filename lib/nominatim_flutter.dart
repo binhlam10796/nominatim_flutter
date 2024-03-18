@@ -36,16 +36,26 @@ class NominatimFlutter {
   /// Performs a reverse geocoding operation based on the given latitude and longitude.
   ///
   /// [reverseRequest] - A [ReverseRequest] object containing details like latitude and longitude for the lookup.
-  Future<NominatimResponse> reverse(
-      {required ReverseRequest reverseRequest}) async {
-    return await _nominatimService.reverse(reverseRequest: reverseRequest);
+  Future<NominatimResponse> reverse({
+    required ReverseRequest reverseRequest,
+    String? language,
+  }) async {
+    return await _nominatimService.reverse(
+      reverseRequest: reverseRequest,
+      language: language,
+    );
   }
 
   /// Conducts a search operation to retrieve places matching the provided search criteria.
   ///
   /// [searchRequest] - A [SearchRequest] object encapsulating search parameters and filters.
-  Future<List<NominatimResponse>> search(
-      {required SearchRequest searchRequest}) async {
-    return await _nominatimService.search(searchRequest: searchRequest);
+  Future<List<NominatimResponse>> search({
+    required SearchRequest searchRequest,
+    String? language,
+  }) async {
+    return await _nominatimService.search(
+      searchRequest: searchRequest,
+      language: language,
+    );
   }
 }

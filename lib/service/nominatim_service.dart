@@ -5,33 +5,44 @@ import 'nominatim_service_client.dart';
 
 // Abstract class defining the methods for interacting with the Nominatim service
 abstract class NominatimService {
-  Future<List<NominatimResponse>> search(
-      {required SearchRequest searchRequest});
+  Future<List<NominatimResponse>> search({
+    required SearchRequest searchRequest,
+    String? language,
+  });
 
-  Future<NominatimResponse> reverse({required ReverseRequest reverseRequest});
+  Future<NominatimResponse> reverse({
+    required ReverseRequest reverseRequest,
+    String? language,
+  });
 }
 
 // Implementation of the NominatimService interface
 class NominatimServiceImpl with IsolateHelperMixin implements NominatimService {
   @override
-  Future<NominatimResponse> reverse(
-      {required ReverseRequest reverseRequest}) async {
+  Future<NominatimResponse> reverse({
+    required ReverseRequest reverseRequest,
+    String? language,
+  }) async {
     return await loadWithIsolate(() async {
       var response = await NominatimServiceClient(
         type: NominatimServiceType.reverse,
         reverseRequest: reverseRequest,
+        language: language,
       ).request();
       return NominatimResponse.fromJson(response);
     });
   }
 
   @override
-  Future<List<NominatimResponse>> search(
-      {required SearchRequest searchRequest}) async {
+  Future<List<NominatimResponse>> search({
+    required SearchRequest searchRequest,
+    String? language,
+  }) async {
     return await loadWithIsolate(() async {
       var response = await NominatimServiceClient(
         type: NominatimServiceType.search,
         searchRequest: searchRequest,
+        language: language,
       ).request();
 
       // Convert response to a list of NominatimResponse objects
