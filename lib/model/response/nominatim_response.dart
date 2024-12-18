@@ -1,62 +1,77 @@
+/// Represents the response from the Nominatim reverse geocoding API.
+///
+/// This class contains various details about a location, including its
+/// coordinates, classification, and additional metadata.
+///
+/// For more information, refer to the [Nominatim API documentation](https://nominatim.org/release-docs/latest/api/Output/).
 class NominatimResponse {
-  /// Reference to the Nominatim internal database ID
-  /// See https://nominatim.org/release-docs/latest/api/Output/#place_id-is-not-a-persistent-id
+  /// The internal database ID used by Nominatim.
+  ///
+  /// Note: This ID is not persistent and may change over time.
+  /// See [Nominatim place_id documentation](https://nominatim.org/release-docs/latest/api/Output/#place_id-is-not-a-persistent-id).
   int? placeId;
+
+  /// The licence under which the data is provided.
   String? licence;
 
-  /// Reference to the OSM object
+  /// The type of the OpenStreetMap (OSM) object (e.g., node, way, relation).
   String? osmType;
 
-  /// Reference to the OSM object
+  /// The ID of the OSM object.
   int? osmId;
 
-  /// Latitude of the centroid of the object
+  /// The latitude of the centroid of the object.
   String? lat;
 
-  /// Longitude of the centroid of the object
+  /// The longitude of the centroid of the object.
   String? lon;
 
-  /// Classification of location
+  /// The classification of the location (e.g., building, road).
   String? addressClass;
 
-  /// Key of the main OSM tag
+  /// The main category of the OSM tag.
   String? category;
 
-  /// Value of the main OSM tag
+  /// The specific type of the OSM tag.
   String? type;
 
-  /// Search rank of the object
+  /// The search rank of the object.
   int? placeRank;
 
-  /// Computed importance rank
+  /// The computed importance rank of the location.
   double? importance;
 
-  /// Type of the location: road, place, etc..
+  /// The type of the location (e.g., road, place).
   String? addresstype;
 
-  /// Name of the location
+  /// The name of the location.
   String? name;
 
-  /// Full comma-separated address
+  /// The full comma-separated address of the location.
   String? displayName;
 
-  /// Map of address details
-  /// Only with [reverse(addressDetails: true)]
-  /// See https://nominatim.org/release-docs/latest/api/Output/#addressdetails
+  /// A map containing detailed address information.
+  ///
+  /// This is available only when `reverse(addressDetails: true)` is used.
+  /// See [Nominatim address details documentation](https://nominatim.org/release-docs/latest/api/Output/#addressdetails).
   Map<String, dynamic>? address;
 
-  /// Map with additional useful tags like website or max speed
-  /// Only with [reverse(extraTags: true)]
+  /// A map containing additional useful tags such as website or max speed.
+  ///
+  /// This is available only when `reverse(extraTags: true)` is used.
   Map<String, dynamic>? extraTags;
 
-  /// Map with full list of available names including ref etc.
-  /// Only with [reverse(nameDetails: true)]
+  /// A map containing a full list of available names, including references.
+  ///
+  /// This is available only when `reverse(nameDetails: true)` is used.
   Map<String, dynamic>? nameDetails;
 
-  /// Area of corner coordinates
-  /// See https://nominatim.org/release-docs/latest/api/Output/#boundingbox
+  /// A list of corner coordinates defining the bounding box of the area.
+  ///
+  /// See [Nominatim bounding box documentation](https://nominatim.org/release-docs/latest/api/Output/#boundingbox).
   List<String>? boundingbox;
 
+  /// Constructs a [NominatimResponse] instance.
   NominatimResponse({
     this.placeId,
     this.licence,
@@ -78,6 +93,7 @@ class NominatimResponse {
     this.boundingbox,
   });
 
+  /// Constructs a [NominatimResponse] instance from a JSON object.
   NominatimResponse.fromJson(Map<String, dynamic> json) {
     placeId = json['place_id'];
     licence = json['licence'];
@@ -129,6 +145,10 @@ class NominatimResponse {
   }
 }
 
+/// Represents additional tags for a location, such as road attributes.
+///
+/// This class contains details like the number of lanes, whether the road
+/// is a one-way street, the surface type, and speed limits.
 class Extratags {
   /// The number of lanes on a road.
   String? lanes;
@@ -145,6 +165,7 @@ class Extratags {
   /// The minimum speed in lanes on the road.
   String? minspeedLanes;
 
+  /// Constructs an [Extratags] instance.
   Extratags({
     this.lanes,
     this.oneway,
@@ -153,6 +174,7 @@ class Extratags {
     this.minspeedLanes,
   });
 
+  /// Constructs an [Extratags] instance from a JSON object.
   Extratags.fromJson(Map<String, dynamic> json) {
     lanes = json['lanes'];
     oneway = json['oneway'];
@@ -173,6 +195,10 @@ class Extratags {
   }
 }
 
+/// Represents detailed names for a location, including alternate and regional names.
+///
+/// This class contains various names associated with a location, such as
+/// the primary name, alternate names, regional names, and official names.
 class Namedetails {
   /// A reference associated with the named details.
   String? ref;
@@ -195,6 +221,7 @@ class Namedetails {
   /// The official name.
   String? officialName;
 
+  /// Constructs a [Namedetails] instance.
   Namedetails({
     this.ref,
     this.name,
@@ -205,6 +232,7 @@ class Namedetails {
     this.officialName,
   });
 
+  /// Constructs a [Namedetails] instance from a JSON object.
   Namedetails.fromJson(Map<String, dynamic> json) {
     ref = json['ref'];
     name = json['name'];

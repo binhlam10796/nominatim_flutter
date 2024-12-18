@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:nominatim_flutter/model/request/request.dart';
 import 'package:nominatim_flutter/nominatim_flutter.dart';
 import 'package:test/test.dart';
@@ -15,7 +16,7 @@ void main() {
       reverseRequest: reverseRequest,
       language: 'vi-VN,vi;q=0.5',
     );
-    print(reverseResult.displayName);
+    debugPrint(reverseResult.displayName);
     // The value printed out should match the value you passed to the 'language' parameter.
   });
 
@@ -31,7 +32,7 @@ void main() {
       searchRequest: searchRequest,
       language: 'vi-VN,vi;q=0.5',
     );
-    print(searchResult.single.displayName);
+    debugPrint(searchResult.single.displayName);
     // The value printed out should match the value you passed to the 'language' parameter.
   });
 }
