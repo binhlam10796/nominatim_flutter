@@ -4,6 +4,8 @@ The Nominatim Flutter Plugin offers seamless interaction with the Nominatim serv
 
 ## Features
 - **Reverse Geocoding & Place Searching**: Directly integrate with Nominatim.
+- **Check Server Status**: Verify the operational status of the Nominatim server.
+- **Lookup**: Retrieve detailed information about specific places using unique identifiers (OSM IDs).
 - **Asynchronous Isolate Loading**: Load data in a separate thread, ensuring your UI remains smooth.
 - **Hive Caching**: Speed up data retrieval with efficient caching.
 - **DioCache Customization**: Take control of caching behavior by configuring DioCache settings.
@@ -16,7 +18,7 @@ To use the Nominatim Flutter Plugin, follow these steps:
 
     ```yaml
     dependencies:
-      nominatim_flutter: ^0.0.2 # Replace with the latest version
+      nominatim_flutter: ^0.0.4 # Replace with the latest version
     ```
 
 2. **Import Classes**: Import the necessary classes in your Dart code.
@@ -71,8 +73,37 @@ To use the Nominatim Flutter Plugin, follow these steps:
     }
     ```
 
-6. **Contributions**: Contributions are welcome! If you encounter any issues or have suggestions for improvements, please feel free to submit a pull request or create an issue on the GitHub repository.
+6. **Check Server Status**: Verify the status of the Nominatim server to ensure it is operational.
 
-7. **License**: This project is licensed under the GPL-3.0 License. Refer to the [LICENSE](LICENSE) file for details.
+    ```dart
+    final statusResult = await NominatimFlutter.instance.status();
+    if (statusResult.status == Status.ok) {
+      print('Nominatim server is operational.');
+    } else {
+      print('Nominatim server is down.');
+    }
+    ```
 
-Remember to replace the version number (`^0.0.2`) with the actual version of your Nominatim Flutter Plugin. Customize the usage examples and other sections according to your project's needs.
+7. **Lookup**: Retrieve detailed information about a specific place using its unique identifier (OSM ID).
+
+    ```dart
+    final lookupRequest = LookupRequest(
+      osmIds: 'R146656,W104393803,N240109189', // Replace with actual OSM IDs
+      addressDetails: true,
+      extraTags: true,
+      nameDetails: true,
+    );
+    final lookupResult = await NominatimFlutter.instance.lookup(
+      lookupRequest: lookupRequest,
+      language: 'en-US,en;q=0.5', // Specify the desired language(s) here
+    );
+    for (var result in lookupResult) {
+      print(result);
+    }
+    ```
+
+8. **Contributions**: Contributions are welcome! If you encounter any issues or have suggestions for improvements, please feel free to submit a pull request or create an issue on the GitHub repository.
+
+9. **License**: This project is licensed under the GPL-3.0 License. Refer to the [LICENSE](LICENSE) file for details.
+
+Remember to replace the version number (`^0.0.4`) with the actual version of your Nominatim Flutter Plugin. Customize the usage examples and other sections according to your project's needs.

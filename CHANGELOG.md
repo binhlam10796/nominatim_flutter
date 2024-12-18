@@ -1,3 +1,8 @@
+## 0.0.4
+
+- Added server status check feature.
+- Implemented lookup functionality.
+
 ## 0.0.3
 
 - Added language support for returned results.
