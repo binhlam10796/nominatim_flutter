@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.png" alt="Nominatim Flutter Plugin Logo" width="300" height="300">
+  <img src="https://raw.githubusercontent.com/binhlam10796/nominatim_flutter/refs/heads/main/logo.png" alt="Nominatim Flutter Plugin Logo" width="300" height="300">
 </p>
 
 # **Nominatim Flutter Plugin with Isolate Loading & Hive Caching**
