@@ -1,3 +1,8 @@
+## 0.0.5
+
+- Added documentation.
+- Formatted code.
+
 ## 0.0.4
 
 - Added server status check feature.
