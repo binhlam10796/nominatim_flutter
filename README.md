@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="logo.png" alt="Nominatim Flutter Plugin Logo" width="300" height="300">
+</p>
+
 # **Nominatim Flutter Plugin with Isolate Loading & Hive Caching**
 
 The Nominatim Flutter Plugin offers seamless interaction with the Nominatim service, allowing for reverse geocoding and place searching in your Flutter applications. Notably, it supports asynchronous data loading via a dedicated isolate and provides efficient caching using Hive, enhanced with DioCache customization.
