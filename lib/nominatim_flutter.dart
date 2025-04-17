@@ -1,4 +1,5 @@
 import 'package:nominatim_flutter/config/dio_cache_configuration.dart';
+import 'package:nominatim_flutter/config/nominatim_configuration.dart';
 
 import 'model/request/request.dart';
 import 'model/response/response.dart';
@@ -29,12 +30,33 @@ class NominatimFlutter {
   ///
   /// [useCacheInterceptor] - Determines if caching should be applied to Dio requests.
   /// [maxStale] - Specifies the maximum duration for which a cached response is considered valid.
+  @Deprecated(
+      'This method is deprecated and will be removed in a future release.\n'
+      'Please migrate to the `configureNominatim` method, which provides improved functionality and better maintainability.\n'
+      'Using this method may result in unexpected behavior or lack of support for new features.\n'
+      'It is strongly recommended to update your codebase to use the new method.')
   void configureDioCache({
     bool useCacheInterceptor = true,
     Duration maxStale = const Duration(days: 7),
   }) {
     DioCacheConfiguration.useCacheInterceptor = useCacheInterceptor;
     DioCacheConfiguration.maxStale = maxStale;
+  }
+
+  void configureNominatim({
+    bool useCacheInterceptor = true,
+    Duration maxStale = const Duration(days: 7),
+    String? userAgent,
+    bool enableCurlLog = false,
+    bool printOnSuccess = false,
+    bool convertFormData = false,
+  }) {
+    NominatimConfiguration.useCacheInterceptor = useCacheInterceptor;
+    NominatimConfiguration.maxStale = maxStale;
+    NominatimConfiguration.userAgent = userAgent;
+    NominatimConfiguration.enableCurlLog = enableCurlLog;
+    NominatimConfiguration.printOnSuccess = printOnSuccess;
+    NominatimConfiguration.convertFormData = convertFormData;
   }
 
   /// Performs a reverse geocoding operation based on the given latitude and longitude.

@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:nominatim_flutter/config/dio_cache_configuration.dart';
+import 'package:nominatim_flutter/config/nominatim_configuration.dart';
+import 'package:nominatim_flutter/network/curl_interceptor.dart';
 
 /// A factory class responsible for creating and configuring instances of [Dio]
 /// with caching capabilities provided by [DioCacheInterceptor].
@@ -25,7 +27,8 @@ class DioFactory {
       store: MemCacheStore(),
       policy: CachePolicy.request,
       hitCacheOnErrorExcept: [401, 403],
-      maxStale: DioCacheConfiguration.maxStale,
+      maxStale:
+          NominatimConfiguration.maxStale ?? DioCacheConfiguration.maxStale,
       priority: CachePriority.normal,
       keyBuilder: CacheOptions.defaultCacheKeyBuilder,
       allowPostMethod: false,
@@ -39,8 +42,18 @@ class DioFactory {
   Dio createDioInstance() {
     Dio dio = Dio();
 
+    if (NominatimConfiguration.enableCurlLog ?? false) {
+      dio.interceptors.add(
+        CurlInterceptor(
+          printOnSuccess: NominatimConfiguration.printOnSuccess,
+          convertFormData: NominatimConfiguration.convertFormData,
+        ),
+      );
+    }
+
     // Integrate cache interceptor if caching is enabled in configurations
-    if (DioCacheConfiguration.useCacheInterceptor) {
+    if (NominatimConfiguration.useCacheInterceptor ??
+        DioCacheConfiguration.useCacheInterceptor) {
       dio.interceptors.add(DioCacheInterceptor(options: _defaultCacheOptions));
     }
 

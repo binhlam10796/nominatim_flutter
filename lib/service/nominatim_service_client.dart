@@ -1,3 +1,4 @@
+import '../config/nominatim_configuration.dart';
 import '../model/request/request.dart';
 import '../network/api_provider.dart';
 
@@ -58,7 +59,13 @@ class NominatimServiceClient implements APIRequestRepresentable {
 
   /// Headers for the request. Always accepts any content type.
   @override
-  Map<String, String>? get headers => {"accept": "*/*"};
+  Map<String, String>? get headers {
+    return {
+      "accept": "*/*",
+      if (NominatimConfiguration.userAgent != null)
+        "User-Agent": NominatimConfiguration.userAgent ?? '',
+    };
+  }
 
   /// HTTP method for the request. Always uses GET method.
   @override

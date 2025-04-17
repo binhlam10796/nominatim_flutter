@@ -5,8 +5,8 @@ import 'package:test/test.dart';
 void main() {
   test('Reverse test', () async {
     final reverseRequest = ReverseRequest(
-      lat: 10.7950,
-      lon: 106.7218,
+      lat: 8.6400000,
+      lon: 111.9200000,
       addressDetails: true,
       extraTags: true,
       nameDetails: true,

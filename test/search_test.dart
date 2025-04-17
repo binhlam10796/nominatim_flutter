@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 void main() {
   test('Search test', () async {
     final searchRequest = SearchRequest(
-      query: 'Landmark 81',
+      query: 'Quần Đảo Hoàng Sa',
       limit: 1,
       addressDetails: true,
       extraTags: true,

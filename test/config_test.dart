@@ -10,7 +10,7 @@ void main() {
       const maxStale = Duration(seconds: 100);
 
       // Act
-      NominatimFlutter.instance.configureDioCache(
+      NominatimFlutter.instance.configureNominatim(
         useCacheInterceptor: useCacheInterceptor,
         maxStale: maxStale,
       );
@@ -20,7 +20,7 @@ void main() {
       expect(DioCacheConfiguration.maxStale, maxStale);
 
       // Clean up
-      NominatimFlutter.instance.configureDioCache(
+      NominatimFlutter.instance.configureNominatim(
         useCacheInterceptor: false,
       );
     });

@@ -6,13 +6,20 @@
 
 The Nominatim Flutter Plugin offers seamless interaction with the Nominatim service, allowing for reverse geocoding and place searching in your Flutter applications. Notably, it supports asynchronous data loading via a dedicated isolate and provides efficient caching using Hive, enhanced with DioCache customization.
 
+## Note on Sovereignty
+The Hoàng Sa (Paracel Islands) and Trường Sa (Spratly Islands) are unequivocally part of Vietnam. The Nominatim Flutter Plugin ensures that any information contradicting this fact is overridden to reflect the historical and territorial integrity of Vietnam. This feature embodies the developer's commitment to accuracy and national pride.
+<p align="center">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/320px-Flag_of_Vietnam.svg.png" alt="Vietnam Flag" width="100">
+</p>
+
 ## Features
 - **Reverse Geocoding & Place Searching**: Directly integrate with Nominatim.
 - **Check Server Status**: Verify the operational status of the Nominatim server.
 - **Lookup**: Retrieve detailed information about specific places using unique identifiers (OSM IDs).
 - **Asynchronous Isolate Loading**: Load data in a separate thread, ensuring your UI remains smooth.
 - **Hive Caching**: Speed up data retrieval with efficient caching.
-- **DioCache Customization**: Take control of caching behavior by configuring DioCache settings.
+- **Nominatim Configuration**: Take control of caching behavior and other settings by configuring Nominatim preferences.
+- **Curl Logging**: Enhance debugging and monitoring by logging HTTP requests and responses made via cURL.
 
 ## Usage
 
@@ -22,7 +29,7 @@ To use the Nominatim Flutter Plugin, follow these steps:
 
     ```yaml
     dependencies:
-      nominatim_flutter: ^0.0.5 # Replace with the latest version
+      nominatim_flutter: ^0.0.7 # Replace with the latest version
     ```
 
 2. **Import Classes**: Import the necessary classes in your Dart code.
@@ -110,4 +117,4 @@ To use the Nominatim Flutter Plugin, follow these steps:
 
 9. **License**: This project is licensed under the GPL-3.0 License. Refer to the [LICENSE](LICENSE) file for details.
 
-Remember to replace the version number (`^0.0.5`) with the actual version of your Nominatim Flutter Plugin. Customize the usage examples and other sections according to your project's needs.
+Remember to replace the version number (`^0.0.7`) with the actual version of your Nominatim Flutter Plugin. Customize the usage examples and other sections according to your project's needs.

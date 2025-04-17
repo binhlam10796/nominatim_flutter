@@ -1,6 +1,7 @@
 import '../model/isolate_helper_mixin.dart';
 import '../model/request/request.dart';
 import '../model/response/response.dart';
+import 'location_filter.dart';
 import 'nominatim_service_client.dart';
 
 /// Abstract class defining the methods for interacting with the Nominatim service.
@@ -60,6 +61,8 @@ abstract class NominatimService {
 
 /// Implementation of the [NominatimService] interface.
 class NominatimServiceImpl with IsolateHelperMixin implements NominatimService {
+  final VietnamTerritoryFilter _territoryFilter = VietnamTerritoryFilter();
+
   /// Performs a reverse geocoding request based on the given [reverseRequest].
   ///
   /// The [reverseRequest] parameter is required and contains the reverse geocoding criteria.
@@ -77,7 +80,9 @@ class NominatimServiceImpl with IsolateHelperMixin implements NominatimService {
         reverseRequest: reverseRequest,
         language: language,
       ).request();
-      return NominatimResponse.fromJson(response);
+      _territoryFilter.applyFilter(response);
+      final place = NominatimResponse.fromJson(response);
+      return place;
     });
   }
 
@@ -99,11 +104,15 @@ class NominatimServiceImpl with IsolateHelperMixin implements NominatimService {
         language: language,
       ).request();
 
+      // Apply territory filter to each place
+      _territoryFilter.applyFilterToList(response as List<dynamic>);
+
       // Convert response to a list of NominatimResponse objects
-      return (response as List<dynamic>)
+      final places = (response)
           .map<NominatimResponse>(
               (i) => NominatimResponse.fromJson(i as Map<String, dynamic>))
           .toList();
+      return places;
     });
   }
 
@@ -141,11 +150,15 @@ class NominatimServiceImpl with IsolateHelperMixin implements NominatimService {
         language: language,
       ).request();
 
+      // Apply territory filter to each place
+      _territoryFilter.applyFilterToList(response as List<dynamic>);
+
       // Convert response to a list of NominatimResponse objects
-      return (response as List<dynamic>)
+      final places = (response)
           .map<NominatimResponse>(
               (i) => NominatimResponse.fromJson(i as Map<String, dynamic>))
           .toList();
+      return places;
     });
   }
 }
