@@ -16,6 +16,7 @@ The Hoàng Sa (Paracel Islands) and Trường Sa (Spratly Islands) are unequivoc
 - **Reverse Geocoding & Place Searching**: Directly integrate with Nominatim.
 - **Check Server Status**: Verify the operational status of the Nominatim server.
 - **Lookup**: Retrieve detailed information about specific places using unique identifiers (OSM IDs).
+- **Custom Server Support**: Connect to your own Nominatim instance instead of the default OpenStreetMap server.
 - **Asynchronous Isolate Loading**: Load data in a separate thread, ensuring your UI remains smooth.
 - **Hive Caching**: Speed up data retrieval with efficient caching.
 - **Nominatim Configuration**: Take control of caching behavior and other settings by configuring Nominatim preferences.
@@ -38,15 +39,27 @@ To use the Nominatim Flutter Plugin, follow these steps:
     import 'package:nominatim_flutter/nominatim_flutter.dart';
     ```
 
-3. **Configuration (Optional)**: Before you start making requests, you can optionally set up caching preferences using DioCache.
+3. **Configuration (Optional)**: Before you start making requests, you can optionally set up caching preferences and other settings.
     
     ```dart
+    // Configure Nominatim settings (recommended approach)
+    NominatimFlutter.instance.configureNominatim(
+      useCacheInterceptor: true,
+      maxStale: Duration(days: 7),
+      baseUrl: 'https://your-nominatim-server.com', // Optional: use custom Nominatim server
+      userAgent: 'YourApp/1.0',
+      enableCurlLog: true, // Enable cURL logging for debugging
+      printOnSuccess: true, // Log successful requests
+      convertFormData: true,
+    );
+    
+    // Or use the legacy cache configuration (deprecated)
     NominatimFlutter.instance.configureDioCache(
       useCacheInterceptor: true, 
       maxStale: Duration(days: 7),
     );
     ```
-    This step allows you to determine whether the cache interceptor is used and to set the maximum staleness of the cache.
+    This step allows you to determine whether the cache interceptor is used, set the maximum staleness of the cache, configure a custom Nominatim server URL, and enable debug logging.
 
 4. **Reverse Geocoding**: Retrieve address information from latitude and longitude coordinates.
 

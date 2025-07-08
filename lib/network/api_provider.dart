@@ -8,8 +8,6 @@ part 'api_request_representable.dart'; // Assuming this file is in the same dire
 class APIProvider {
   APIProvider._();
 
-  final _dio = DioFactory.instance.createDioInstance();
-
   // Singleton instance of [APIProvider].
   static final _instance = APIProvider._();
 
@@ -18,7 +16,10 @@ class APIProvider {
 
   /// Perform an API request based on the provided [APIRequestRepresentable].
   Future<dynamic> request(APIRequestRepresentable request) async {
-    final response = await _dio.request(
+    // Always get a fresh Dio instance to pick up configuration changes
+    final dio = DioFactory.instance.createDioInstance();
+    
+    final response = await dio.request(
       request.urls,
       data: request.bodies,
       queryParameters: request.queries,

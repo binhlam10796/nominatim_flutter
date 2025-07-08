@@ -47,6 +47,7 @@ class NominatimFlutter {
     bool useCacheInterceptor = true,
     Duration maxStale = const Duration(days: 7),
     String? userAgent,
+    String? baseUrl,
     bool enableCurlLog = false,
     bool printOnSuccess = false,
     bool convertFormData = false,
@@ -54,6 +55,7 @@ class NominatimFlutter {
     NominatimConfiguration.useCacheInterceptor = useCacheInterceptor;
     NominatimConfiguration.maxStale = maxStale;
     NominatimConfiguration.userAgent = userAgent;
+    NominatimConfiguration.baseUrl = baseUrl;
     NominatimConfiguration.enableCurlLog = enableCurlLog;
     NominatimConfiguration.printOnSuccess = printOnSuccess;
     NominatimConfiguration.convertFormData = convertFormData;
