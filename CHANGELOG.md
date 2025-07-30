@@ -1,3 +1,11 @@
+## 0.0.8
+
+- Fixed type conversion error when parsing API responses (lat/lon can now be string or double).
+- Fixed configuration not being applied due to Dio client caching issues.
+- Added custom server support with configurable base URL.
+- Enhanced configuration system with proper change detection.
+- Improved backward compatibility and migration path from deprecated methods.
+
 ## 0.0.7
 
 - Introduced User-Agent customization for better request identification.

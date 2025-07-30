@@ -14,7 +14,7 @@ class NominatimConfiguration {
   static Duration? maxStale = const Duration(days: 7);
 
   /// Specifies the User-Agent string to be used for HTTP requests to the Nominatim API.
-  static String? userAgent = 'NominatimFlutter/0.0.7';
+  static String? userAgent = 'NominatimFlutter/0.0.8';
 
   /// Specifies the base URL for the Nominatim API.
   /// Defaults to the official OpenStreetMap Nominatim instance.

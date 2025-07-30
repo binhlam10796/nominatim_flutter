@@ -1,6 +1,6 @@
 name: nominatim_flutter
 description: The Nominatim Flutter Plugin enables smooth Nominatim service integration for reverse geocoding, place searches, status checks, and lookups in Flutter.
-version: 0.0.7
+version: 0.0.8
 homepage: https://github.com/binhlam10796/nominatim_flutter
 
 environment:

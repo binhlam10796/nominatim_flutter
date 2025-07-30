@@ -44,8 +44,10 @@ class DioFactory {
   /// Creates a snapshot of the current configuration for comparison
   Map<String, dynamic> _getCurrentConfig() {
     return {
-      'useCacheInterceptor': NominatimConfiguration.useCacheInterceptor ?? DioCacheConfiguration.useCacheInterceptor,
-      'maxStale': NominatimConfiguration.maxStale ?? DioCacheConfiguration.maxStale,
+      'useCacheInterceptor': NominatimConfiguration.useCacheInterceptor ??
+          DioCacheConfiguration.useCacheInterceptor,
+      'maxStale':
+          NominatimConfiguration.maxStale ?? DioCacheConfiguration.maxStale,
       'enableCurlLog': NominatimConfiguration.enableCurlLog ?? false,
       'printOnSuccess': NominatimConfiguration.printOnSuccess ?? false,
       'convertFormData': NominatimConfiguration.convertFormData,
@@ -61,7 +63,7 @@ class DioFactory {
       _lastConfig = currentConfig;
       return true;
     }
-    
+
     final hasChanged = !_mapsEqual(_lastConfig!, currentConfig);
     if (hasChanged) {
       _lastConfig = currentConfig;
@@ -82,14 +84,14 @@ class DioFactory {
   ///
   /// Uses the [DioCacheInterceptor] to provide caching functionality,
   /// relying on the cache configurations provided in [_defaultCacheOptions].
-  /// 
+  ///
   /// The instance is cached and reused unless the configuration has changed.
   Dio createDioInstance() {
     // Check if we need to recreate the Dio instance due to configuration changes
     if (_dioInstance == null || _hasConfigChanged()) {
       _dioInstance = _createNewDioInstance();
     }
-    
+
     return _dioInstance!;
   }
 

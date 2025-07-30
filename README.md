@@ -30,7 +30,7 @@ To use the Nominatim Flutter Plugin, follow these steps:
 
     ```yaml
     dependencies:
-      nominatim_flutter: ^0.0.7 # Replace with the latest version
+      nominatim_flutter: ^0.0.8 # Replace with the latest version
     ```
 
 2. **Import Classes**: Import the necessary classes in your Dart code.
@@ -130,4 +130,4 @@ To use the Nominatim Flutter Plugin, follow these steps:
 
 9. **License**: This project is licensed under the GPL-3.0 License. Refer to the [LICENSE](LICENSE) file for details.
 
-Remember to replace the version number (`^0.0.7`) with the actual version of your Nominatim Flutter Plugin. Customize the usage examples and other sections according to your project's needs.
+Remember to replace the version number (`^0.0.8`) with the actual version of your Nominatim Flutter Plugin. Customize the usage examples and other sections according to your project's needs.

@@ -18,7 +18,7 @@ class APIProvider {
   Future<dynamic> request(APIRequestRepresentable request) async {
     // Always get a fresh Dio instance to pick up configuration changes
     final dio = DioFactory.instance.createDioInstance();
-    
+
     final response = await dio.request(
       request.urls,
       data: request.bodies,
