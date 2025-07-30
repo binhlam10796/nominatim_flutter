@@ -5,6 +5,15 @@ import 'package:nominatim_flutter/model/request/request.dart';
 import 'package:nominatim_flutter/nominatim_flutter.dart';
 
 void main() {
+  // Configure Nominatim with enhanced settings
+  NominatimFlutter.instance.configureNominatim(
+    userAgent: 'NominatimFlutterExample/1.0',
+    enableCurlLog: true,
+    printOnSuccess: true,
+    convertFormData: true,
+    // baseUrl: 'https://your-custom-nominatim-server.com', // Uncomment to use custom server
+  );
+
   runApp(const MyApp());
 }
 

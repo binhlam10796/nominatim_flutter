@@ -55,7 +55,7 @@ class NominatimServiceClient implements APIRequestRepresentable {
 
   /// Base URL for the Nominatim service.
   @override
-  String get endpoints => "https://nominatim.openstreetmap.org";
+  String get endpoints => NominatimConfiguration.baseUrl ?? "https://nominatim.openstreetmap.org";
 
   /// Headers for the request. Always accepts any content type.
   @override

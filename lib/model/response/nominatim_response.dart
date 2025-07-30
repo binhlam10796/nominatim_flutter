@@ -99,8 +99,9 @@ class NominatimResponse {
     licence = json['licence'];
     osmType = json['osm_type'];
     osmId = json['osm_id'];
-    lat = json['lat'];
-    lon = json['lon'];
+    // Handle lat and lon which can be either String or double from the API
+    lat = json['lat']?.toString();
+    lon = json['lon']?.toString();
     addressClass = json['class'];
     category = json['category'];
     type = json['type'];
@@ -118,7 +119,7 @@ class NominatimResponse {
     nameDetails = json['namedetails'] != null
         ? json['namedetails'] as Map<String, dynamic>
         : null;
-    boundingbox = json['boundingbox'].cast<String>();
+    boundingbox = json['boundingbox']?.cast<String>();
   }
 
   @override
