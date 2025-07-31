@@ -115,4 +115,20 @@ class NominatimFlutter {
       language: language,
     );
   }
+
+  /// Performs a details operation to retrieve detailed information about a specific place.
+  ///
+  /// [detailsRequest] - A [DetailsRequest] object containing details like place ID or OSM identifiers for the details lookup.
+  /// [language] - Optional parameter to specify the language for the response.
+  ///
+  /// Returns a [Future] that resolves to a [NominatimResponse] object containing the detailed place information.
+  Future<NominatimResponse> details({
+    required DetailsRequest detailsRequest,
+    String? language,
+  }) async {
+    return await _nominatimService.details(
+      detailsRequest: detailsRequest,
+      language: language,
+    );
+  }
 }

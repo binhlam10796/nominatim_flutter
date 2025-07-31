@@ -14,7 +14,10 @@ enum NominatimServiceType {
   status,
 
   /// Lookup service type.
-  lookup
+  lookup,
+
+  /// Details service type.
+  details
 }
 
 /// Class responsible for making requests to the Nominatim service.
@@ -31,6 +34,9 @@ class NominatimServiceClient implements APIRequestRepresentable {
   /// The lookup request parameters, applicable if the service type is [NominatimServiceType.lookup].
   final LookupRequest? lookupRequest;
 
+  /// The details request parameters, applicable if the service type is [NominatimServiceType.details].
+  final DetailsRequest? detailsRequest;
+
   /// The language for the request, if applicable.
   final String? language;
 
@@ -40,12 +46,14 @@ class NominatimServiceClient implements APIRequestRepresentable {
   /// [searchRequest] is optional and used if the service type is [NominatimServiceType.search].
   /// [reverseRequest] is optional and used if the service type is [NominatimServiceType.reverse].
   /// [lookupRequest] is optional and used if the service type is [NominatimServiceType.lookup].
+  /// [detailsRequest] is optional and used if the service type is [NominatimServiceType.details].
   /// [language] is optional and specifies the language for the request.
   NominatimServiceClient({
     required this.type,
     this.searchRequest,
     this.reverseRequest,
     this.lookupRequest,
+    this.detailsRequest,
     this.language,
   });
 
@@ -75,9 +83,10 @@ class NominatimServiceClient implements APIRequestRepresentable {
   /// Get the API endpoint path based on the service type.
   ///
   /// Returns "/search" for [NominatimServiceType.search],
-  /// "/reverse" for [NominatimServiceType.reverse], and
-  /// "/status" for [NominatimServiceType.status] and
-  /// "/lookup" for [NominatimServiceType.lookup].
+  /// "/reverse" for [NominatimServiceType.reverse],
+  /// "/status" for [NominatimServiceType.status],
+  /// "/lookup" for [NominatimServiceType.lookup], and
+  /// "/details" for [NominatimServiceType.details].
   @override
   String get paths {
     switch (type) {
@@ -89,6 +98,8 @@ class NominatimServiceClient implements APIRequestRepresentable {
         return "/status";
       case NominatimServiceType.lookup:
         return "/lookup";
+      case NominatimServiceType.details:
+        return "/details";
     }
   }
 
@@ -98,6 +109,7 @@ class NominatimServiceClient implements APIRequestRepresentable {
   /// For [NominatimServiceType.reverse], returns a map of reverse geocoding parameters.
   /// For [NominatimServiceType.status], returns a map with the format parameter.
   /// For [NominatimServiceType.lookup], returns a map of lookup parameters.
+  /// For [NominatimServiceType.details], returns a map of details parameters.
   @override
   Map<String, String>? get queries {
     switch (type) {
@@ -160,6 +172,25 @@ class NominatimServiceClient implements APIRequestRepresentable {
           "namedetails": "${(lookupRequest?.nameDetails ?? true) ? 1 : 0}",
           "polygon_geojson":
               "${(lookupRequest?.polygonGeojson ?? true) ? 1 : 0}",
+          if (language != null) 'accept-language': language!,
+        };
+      case NominatimServiceType.details:
+        assert(detailsRequest != null);
+        return {
+          "format": "json",
+          if (detailsRequest!.placeId != null)
+            "place_id": "${detailsRequest!.placeId!}",
+          if (detailsRequest!.osmType != null)
+            "osmtype": detailsRequest!.osmType!,
+          if (detailsRequest!.osmId != null)
+            "osmid": "${detailsRequest!.osmId!}",
+          "addressdetails":
+              "${(detailsRequest?.addressDetails ?? true) ? 1 : 0}",
+          "hierarchy": "${(detailsRequest?.hierarchy ?? false) ? 1 : 0}",
+          "group_hierarchy":
+              "${(detailsRequest?.groupHierarchy ?? false) ? 1 : 0}",
+          "polygon_geojson":
+              "${(detailsRequest?.polygonGeojson ?? false) ? 1 : 0}",
           if (language != null) 'accept-language': language!,
         };
     }
