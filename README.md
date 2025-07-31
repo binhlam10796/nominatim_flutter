@@ -16,6 +16,7 @@ The Hoàng Sa (Paracel Islands) and Trường Sa (Spratly Islands) are unequivoc
 - **Reverse Geocoding & Place Searching**: Directly integrate with Nominatim.
 - **Check Server Status**: Verify the operational status of the Nominatim server.
 - **Lookup**: Retrieve detailed information about specific places using unique identifiers (OSM IDs).
+- **Details**: Retrieve comprehensive details about a specific place using place ID or OSM identifiers, including hierarchy and polygon geometry.
 - **Custom Server Support**: Connect to your own Nominatim instance instead of the default OpenStreetMap server.
 - **Asynchronous Isolate Loading**: Load data in a separate thread, ensuring your UI remains smooth.
 - **Hive Caching**: Speed up data retrieval with efficient caching.
@@ -126,8 +127,41 @@ To use the Nominatim Flutter Plugin, follow these steps:
     }
     ```
 
-8. **Contributions**: Contributions are welcome! If you encounter any issues or have suggestions for improvements, please feel free to submit a pull request or create an issue on the GitHub repository.
+8. **Details**: Retrieve detailed information about a specific place using place ID or OSM identifiers.
 
-9. **License**: This project is licensed under the GPL-3.0 License. Refer to the [LICENSE](LICENSE) file for details.
+    ```dart
+    // Using place ID
+    final detailsRequest = DetailsRequest(
+      placeId: 240109189,
+      addressDetails: true,
+      hierarchy: true,
+      groupHierarchy: true,
+      polygonGeojson: true,
+    );
+    final detailsResult = await NominatimFlutter.instance.details(
+      detailsRequest: detailsRequest,
+      language: 'en-US,en;q=0.5', // Specify the desired language(s) here
+    );
+    print(detailsResult);
+    
+    // Using OSM identifiers
+    final detailsRequestOsm = DetailsRequest(
+      osmType: 'N', // N for node, W for way, R for relation
+      osmId: 240109189,
+      addressDetails: true,
+      hierarchy: false,
+      groupHierarchy: false,
+      polygonGeojson: false,
+    );
+    final detailsResultOsm = await NominatimFlutter.instance.details(
+      detailsRequest: detailsRequestOsm,
+      language: 'en-US,en;q=0.5', // Specify the desired language(s) here
+    );
+    print(detailsResultOsm);
+    ```
+
+9. **Contributions**: Contributions are welcome! If you encounter any issues or have suggestions for improvements, please feel free to submit a pull request or create an issue on the GitHub repository.
+
+10. **License**: This project is licensed under the GPL-3.0 License. Refer to the [LICENSE](LICENSE) file for details.
 
 Remember to replace the version number (`^0.0.8`) with the actual version of your Nominatim Flutter Plugin. Customize the usage examples and other sections according to your project's needs.
