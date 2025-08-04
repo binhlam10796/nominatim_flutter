@@ -57,6 +57,32 @@ abstract class NominatimService {
     required LookupRequest lookupRequest,
     String? language,
   });
+
+  /// Performs a details request to the Nominatim service.
+  ///
+  /// This function sends a details request with the specified parameters to the
+  /// Nominatim service and returns a [NominatimResponse] object with detailed
+  /// information about a specific place.
+  ///
+  /// The [detailsRequest] parameter is required and contains the details of the
+  /// details request.
+  ///
+  /// The [language] parameter is optional and specifies the language in which
+  /// the results should be returned.
+  ///
+  /// Returns a [Future] that completes with a [NominatimResponse] object.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// final response = await nominatimService.details(
+  ///   detailsRequest: DetailsRequest(...),
+  ///   language: 'en',
+  /// );
+  /// ```
+  Future<NominatimResponse> details({
+    required DetailsRequest detailsRequest,
+    String? language,
+  });
 }
 
 /// Implementation of the [NominatimService] interface.
@@ -159,6 +185,30 @@ class NominatimServiceImpl with IsolateHelperMixin implements NominatimService {
               (i) => NominatimResponse.fromJson(i as Map<String, dynamic>))
           .toList();
       return places;
+    });
+  }
+
+  /// Performs a details request to the Nominatim service.
+  ///
+  /// The [detailsRequest] parameter is required and contains the details of the
+  /// details request.
+  /// The optional [language] parameter specifies the language for the search results.
+  ///
+  /// Returns a [Future] that completes with a [NominatimResponse] object.
+  @override
+  Future<NominatimResponse> details({
+    required DetailsRequest detailsRequest,
+    String? language,
+  }) async {
+    return await loadWithIsolate(() async {
+      var response = await NominatimServiceClient(
+        type: NominatimServiceType.details,
+        detailsRequest: detailsRequest,
+        language: language,
+      ).request();
+      _territoryFilter.applyFilter(response);
+      final place = NominatimResponse.fromJson(response);
+      return place;
     });
   }
 }

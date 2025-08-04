@@ -113,6 +113,44 @@ class MyHomePageState extends State<MyHomePage> {
               },
               child: const Text('Perform Search'),
             ),
+            ElevatedButton(
+              onPressed: () async {
+                // Create a DetailsRequest with a place ID
+                final detailsRequest = DetailsRequest(
+                  placeId: 240109189,
+                  addressDetails: true,
+                  hierarchy: true,
+                  groupHierarchy: true,
+                  polygonGeojson: true,
+                );
+
+                // Perform a details request
+                final response = await NominatimFlutter.instance.details(
+                    detailsRequest: detailsRequest, language: 'en-US,en;q=0.5');
+
+                // Display the details result in a dialog
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text('Details Result'),
+                      content: SingleChildScrollView(
+                        child: Text(response.toString()),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: const Text('Get Place Details'),
+            ),
           ],
         ),
       ),

@@ -1,3 +1,11 @@
+## 0.0.9
+
+- Added support for Nominatim Details API endpoint.
+- Implemented DetailsRequest for place ID and OSM identifier-based details queries.
+- Added comprehensive place details retrieval including hierarchy and polygon geometry.
+- Enhanced documentation with Details API usage examples.
+- Added Details API example to the sample application.
+
 ## 0.0.8
 
 - Fixed type conversion error when parsing API responses (lat/lon can now be string or double).
